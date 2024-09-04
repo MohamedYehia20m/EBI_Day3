@@ -1,6 +1,7 @@
 package EBI;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Lab3 {
 
@@ -32,8 +33,8 @@ public class Lab3 {
     }
 
     public static class ComplexNumber {
-        private BigDecimal Re;
-        private BigDecimal Im;
+        final private BigDecimal Re;
+        final private BigDecimal Im;
 
         // Constructor
         public ComplexNumber(BigDecimal Re, BigDecimal Im) {
@@ -46,20 +47,14 @@ public class Lab3 {
             return Re;
         }
 
-        // Setter for Re
-        public void setRe(BigDecimal Re) {
-            this.Re = Re;
-        }
+
 
         // Getter for Im
         public BigDecimal getIm() {
             return Im;
         }
 
-        // Setter for Im
-        public void setIm(BigDecimal Im) {
-            this.Im = Im;
-        }
+
 
         public ComplexNumber addComplex(ComplexNumber num) {
             BigDecimal newRe = this.Re.add(num.Re);
@@ -81,8 +76,8 @@ public class Lab3 {
 
         public ComplexNumber divComplex(ComplexNumber num) {
             BigDecimal denominator = num.Re.multiply(num.Re).add(num.Im.multiply(num.Im));
-            BigDecimal newRe = (this.Re.multiply(num.Re).add(this.Im.multiply(num.Im))).divide(denominator, BigDecimal.ROUND_HALF_UP);
-            BigDecimal newIm = (this.Im.multiply(num.Re).subtract(this.Re.multiply(num.Im))).divide(denominator, BigDecimal.ROUND_HALF_UP);
+            BigDecimal newRe = (this.Re.multiply(num.Re).add(this.Im.multiply(num.Im))).divide(denominator, RoundingMode.HALF_UP);
+            BigDecimal newIm = (this.Im.multiply(num.Re).subtract(this.Re.multiply(num.Im))).divide(denominator, RoundingMode.HALF_UP);
             return new ComplexNumber(newRe, newIm);
         }
     }
